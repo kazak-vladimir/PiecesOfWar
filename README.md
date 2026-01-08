@@ -12,7 +12,7 @@ A roguelike chess-inspired game with tower defense mechanics
 
 ---
 
-*© 2026 Coteki. All rights reserved.*
+*© 2026 Kazak Vladimir. All rights reserved.*
 
 *This project, including all source code, game assets (art, music, sound), and design concepts, is proprietary and protected by copyright.*
 
