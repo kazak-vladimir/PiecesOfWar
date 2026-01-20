@@ -1,4 +1,4 @@
-namespace PiecesOfWar.Core.Time
+namespace ForestGambit.Core.Time
 {
     /// <summary>
     /// Manages game time flow with pause/resume support.

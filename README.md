@@ -1,4 +1,4 @@
-# Pieces Of War
+# FOREST GAMBIT: WHERE STRATEGY GROWS WILD
 
 A roguelike chess-inspired game with tower defense mechanics
 

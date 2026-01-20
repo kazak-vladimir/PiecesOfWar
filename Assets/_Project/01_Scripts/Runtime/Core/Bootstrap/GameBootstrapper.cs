@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PiecesOfWar.Core.Bootstrap
+namespace ForestGambit.Core.Bootstrap
 {
     /// <summary>
     /// Entry point for the game. Loads in Bootstrap scene.

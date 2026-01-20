@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PiecesOfWar.Core.Time
+namespace ForestGambit.Core.Time
 {
     /// <summary>
     /// Default implementation of ITimeManager.
