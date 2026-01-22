@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ForestGambit.Gameplay.Core.Entity
 {
-    public abstract class Unit : MonoBehaviour, IUnit
+    public class Unit : MonoBehaviour, IUnit
     {
         public string Name => throw new System.NotImplementedException();
         public string Description => throw new System.NotImplementedException();
@@ -20,9 +20,19 @@ namespace ForestGambit.Gameplay.Core.Entity
             }
         }
 
-        public abstract List<GridCoordinates> GetAvailablePositions();
+        public List<GridCoordinates> GetAvailablePositions()
+        {
+            throw new System.NotImplementedException();
+        }
 
-        public abstract bool CanMoveTo(GridCoordinates destination);
-        public abstract bool TryMoveTo(GridCoordinates destination);
+        public bool CanMoveTo(GridCoordinates destination)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool TryMoveTo(GridCoordinates destination)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

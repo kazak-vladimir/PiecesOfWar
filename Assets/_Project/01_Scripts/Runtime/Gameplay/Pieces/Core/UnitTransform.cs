@@ -11,13 +11,10 @@ namespace ForestGambit.Gameplay.Core.Entity
     public class UnitTransform : MonoBehaviour
     {
         [SerializeField] private GridCoordinates position;
-        [SerializeField, Range(0, 360)] private float rotation;
 
         public event Action<GridCoordinates> OnPositionChanged;
-        public event Action<float> OnRotationChanged;
 
         public GridCoordinates Position => position;
-        public float Rotation => rotation;
 
         // Movement
         public void MoveTo(GridCoordinates destination)
@@ -30,30 +27,16 @@ namespace ForestGambit.Gameplay.Core.Entity
 
         public void MoveBy(GridCoordinates translation) => MoveTo(position + translation);
 
-        // Rotation
-        public void RotateTo(float newRotation)
-        {
-            newRotation = NormalizeRotation(newRotation);
-            if (Mathf.Approximately(rotation, newRotation)) return;
-            rotation = newRotation;
-            SyncTransform();
-            OnRotationChanged?.Invoke(rotation);
-        }
-
-        public void RotateBy(float delta) => RotateTo(rotation + delta);
-
         // Sync
         public void SnapToGrid()
         {
             position = WorldToGrid(transform.position);
-            rotation = NormalizeRotation(transform.eulerAngles.y);
             SyncTransform();
         }
 
         public void SyncTransform()
         {
             transform.position = GetWorldPosition();
-            transform.rotation = Quaternion.Euler(0f, rotation, 0f);
         }
 
         // Conversion
@@ -66,16 +49,9 @@ namespace ForestGambit.Gameplay.Core.Entity
                 Mathf.RoundToInt(worldPosition.z)
             );
 
-        // Utility
-        private float NormalizeRotation(float angle)
-        {
-            angle %= 360f;
-            return angle < 0f ? angle + 360f : angle;
-        }
-
+        // Editor
         private void OnValidate()
         {
-            rotation = NormalizeRotation(rotation);
             SyncTransform();
         }
 
@@ -84,11 +60,7 @@ namespace ForestGambit.Gameplay.Core.Entity
         {
             Gizmos.color = Color.yellow;
             Vector3 worldPos = GetWorldPosition();
-            Gizmos.DrawWireCube(worldPos, Vector3.one * 0.9f);
-
-            Gizmos.color = Color.blue;
-            Vector3 forward = Quaternion.Euler(0f, rotation, 0f) * Vector3.forward;
-            Gizmos.DrawLine(worldPos, worldPos + forward * 0.4f);
+            Gizmos.DrawWireCube(worldPos, new Vector3(.9f, .1f, .9f));
         }
 #endif
     }
