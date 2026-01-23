@@ -5,8 +5,8 @@ using UnityEngine;
 namespace ForestGambit.Gameplay.Core.Entity
 {
     /// <summary>
-    /// Manages grid-based positioning and rotation for game units.
-    /// Synchronizes with Unity Transform (1 grid unit = 1 world unit)
+    /// Manages grid-based positioning for game units.
+    /// Synchronizes with Unity Transform
     /// </summary>
     public class UnitTransform : MonoBehaviour
     {
@@ -30,24 +30,14 @@ namespace ForestGambit.Gameplay.Core.Entity
         // Sync
         public void SnapToGrid()
         {
-            position = WorldToGrid(transform.position);
+            position = transform.position;
             SyncTransform();
         }
 
         public void SyncTransform()
         {
-            transform.position = GetWorldPosition();
+            transform.position = position;
         }
-
-        // Conversion
-        public Vector3 GetWorldPosition() =>
-            new Vector3(position.X, 0, position.Y);
-
-        public static GridCoordinates WorldToGrid(Vector3 worldPosition) =>
-            new GridCoordinates(
-                Mathf.RoundToInt(worldPosition.x),
-                Mathf.RoundToInt(worldPosition.z)
-            );
 
         // Editor
         private void OnValidate()
@@ -59,8 +49,8 @@ namespace ForestGambit.Gameplay.Core.Entity
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Vector3 worldPos = GetWorldPosition();
-            Gizmos.DrawWireCube(worldPos, new Vector3(.9f, .1f, .9f));
+            Vector3 worldPos = position;
+            Gizmos.DrawWireCube(worldPos, new Vector3(.9f * GridCoordinates.CellSize, .1f, .9f * GridCoordinates.CellSize));
         }
 #endif
     }
