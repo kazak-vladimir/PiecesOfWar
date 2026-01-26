@@ -5,7 +5,6 @@ namespace ForestGambit.Gameplay.Core.Board
 {
     /// <summary>
     /// Represents a position on the game grid.
-    /// Immutable struct for grid coordinates (x, y).
     /// </summary>
     [Serializable]
     public struct GridCoordinates : IEquatable<GridCoordinates>
@@ -46,15 +45,6 @@ namespace ForestGambit.Gameplay.Core.Board
 
         public static GridCoordinates operator /(GridCoordinates a, int scalar) =>
             new GridCoordinates(a.x / scalar, a.y / scalar);
-
-        public static GridCoordinates GetGridCoordinatesFromWorldPosition(Vector3 worldPosition) =>
-            new GridCoordinates(
-                Mathf.RoundToInt(worldPosition.x * CellSize),
-                Mathf.RoundToInt(worldPosition.z * CellSize)
-            );
-
-        public static Vector3 ToWorldPosition(GridCoordinates gridCoordinates) =>
-            new(gridCoordinates.x * CellSize, 0, gridCoordinates.y * CellSize);
 
         public static implicit operator Vector3(GridCoordinates gridCoordinates) =>
             new Vector3(gridCoordinates.x * CellSize, 0, gridCoordinates.y * CellSize);

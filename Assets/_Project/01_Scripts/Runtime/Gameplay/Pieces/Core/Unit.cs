@@ -6,33 +6,43 @@ namespace ForestGambit.Gameplay.Core.Entity
 {
     public class Unit : MonoBehaviour, IUnit
     {
-        public string Name => throw new System.NotImplementedException();
-        public string Description => throw new System.NotImplementedException();
+        [SerializeField] private string unitName;
+        [SerializeField, TextArea] private string description;
 
         private UnitTransform unitTransform;
 
-        public void Awake()
+        public string Name => unitName;
+        public string Description => description;
+
+        private void Awake()
         {
-            unitTransform ??= GetComponent<UnitTransform>();
+            unitTransform = GetComponent<UnitTransform>();
+
             if (unitTransform == null)
             {
-                Debug.LogError("UnitTransform component is missing on Unit.");
+                Debug.LogError("UnitTransform component is missing on Unit", this);
             }
         }
 
-        public List<GridCoordinates> GetAvailablePositions()
+        public virtual List<GridCoordinates> GetAvailablePositions()
         {
-            throw new System.NotImplementedException();
+            // Override in derived classes to implement specific movement patterns
+            return new List<GridCoordinates>();
         }
 
-        public bool CanMoveTo(GridCoordinates destination)
+        public virtual bool CanMoveTo(GridCoordinates destination)
         {
-            throw new System.NotImplementedException();
+            // Override in derived classes to implement movement rules
+            return false;
         }
 
-        public bool TryMoveTo(GridCoordinates destination)
+        public virtual bool TryMoveTo(GridCoordinates destination)
         {
-            throw new System.NotImplementedException();
+            if (!CanMoveTo(destination))
+                return false;
+
+            unitTransform.MoveTo(destination);
+            return true;
         }
     }
 }
