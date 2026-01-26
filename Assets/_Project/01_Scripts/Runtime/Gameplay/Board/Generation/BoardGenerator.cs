@@ -36,7 +36,7 @@ namespace ForestGambit.Gameplay.Core.Board.Generation
                 for (int y = boardBounds.from.y; y <= boardBounds.to.y; y++)
                 {
                     GridCoordinates coords = new GridCoordinates(x, y);
-                    GameObject tilePrefab = ( ((x + y) & 1) == 0 ) ? brightTile : darkTile;
+                    GameObject tilePrefab = ((x + y) & 1) == 1 ? brightTile : darkTile;
                     Instantiate(tilePrefab, coords, Quaternion.identity, transform);
                 }
             }

@@ -125,12 +125,12 @@ namespace ForestGambit.Gameplay.Core.Entity
         {
             float elapsed = 0f;
 
-            while (elapsed < duration)
+            while (elapsed < realDuration)
             {
                 token.ThrowIfCancellationRequested();
 
                 elapsed += Time.deltaTime;
-                float normalizedTime = Mathf.Clamp01(elapsed / duration);
+                float normalizedTime = Mathf.Clamp01(elapsed / realDuration);
                 float easedTime = easingCurve.Evaluate(normalizedTime);
 
                 UpdatePosition(easedTime);
