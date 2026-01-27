@@ -11,7 +11,6 @@ namespace ForestGambit.Gameplay.Core.Entity
     public class UnitTransform : MonoBehaviour
     {
         [SerializeField] private GridCoordinates position;
-        [SerializeField] private Vector3 offset;
 
         public event Action<GridCoordinates> OnPositionChanged;
 
@@ -37,7 +36,7 @@ namespace ForestGambit.Gameplay.Core.Entity
 
         public void SyncTransform()
         {
-            transform.position = (Vector3)position + offset;
+            transform.position = (Vector3)position;
         }
 
         // Editor

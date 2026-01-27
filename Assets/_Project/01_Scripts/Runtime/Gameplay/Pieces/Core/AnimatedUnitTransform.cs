@@ -11,6 +11,7 @@ namespace ForestGambit.Gameplay.Core.Entity
         [Header("Animation Settings")]
         [SerializeField] private Transform animatedTransform;
         [SerializeField] private UnitTransform targetTransform;
+        [SerializeField] private Vector3 offset;
         [SerializeField] private float duration = 0.25f;
         [SerializeField] private AnimationCurve easingCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
@@ -37,7 +38,7 @@ namespace ForestGambit.Gameplay.Core.Entity
                 return;
             }
 
-            SetInstant(targetTransform.Position);
+            SetInstant((Vector3)targetTransform.Position + offset);
             targetTransform.OnPositionChanged += HandlePositionChanged;
         }
 
@@ -66,7 +67,7 @@ namespace ForestGambit.Gameplay.Core.Entity
             try
             {
                 Vector3 startPos = animatedTransform.position;
-                Vector3 targetPos = target;
+                Vector3 targetPos = (Vector3)target + offset;
                 Vector3 direction = (targetPos - startPos).normalized;
 
                 float distance = Vector3.Distance(startPos, targetPos);
